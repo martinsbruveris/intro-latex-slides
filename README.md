@@ -6,7 +6,7 @@ What is it?
 
 These are the LaTeX source files for a presentation about LaTeX. The presentation discusses the pros/cons of LaTeX compared to word processors, showcases the possible uses of LaTeX and finishes with a brief discussion of typography. It was used as an introductiory lecture for second year students of mathematics at Brunel University London in 2017.
 
-[Compiled PDF files](http://www.brunel.ac.uk/~mastmmb) are available on my website.
+[Compiled PDF files](http://www.brunel.ac.uk/~mastmmb/latex.html) are available on my website.
 
 Dependencies
 ------------
