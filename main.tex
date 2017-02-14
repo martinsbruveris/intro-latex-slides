@@ -1,0 +1,364 @@
+%--------------------------------------------------------------------
+%--- Licence
+%--------------------------------------------------------------------
+
+% An Introduction to LaTeX
+%
+% This work is a derivative of
+%   "LaTeX: More Than Just Academic Papers and Journals"
+% by Lim Lian Tze, used under a CC-BY-NC-SA 3.0 licence.
+%
+% Link: http://liantze.penguinattack.org/latextypesetting.html
+%
+% This work is licenced under a CC-BY-NC-SA 4.0 licence 
+% by Martins Bruveris.
+
+%--------------------------------------------------------------------
+%--- Choose compilation mode
+%--------------------------------------------------------------------
+
+% Full presentation (with overlays, animated bullet items etc)
+% \documentclass[xcolor={x11names,svgnames,dvipsnames},
+%                usepdftitle=false]{beamer}
+
+% Transparency mode (no overlays)
+\documentclass[xcolor={x11names,svgnames,dvipsnames},
+                  usepdftitle=false, trans]{beamer}
+
+% n-up handout mode
+% \documentclass[xcolor={x11names,svgnames,dvipsnames},
+%                usepdftitle=false, handout]{beamer}
+
+%--------------------------------------------------------------------
+%--- Beamer setup
+%--------------------------------------------------------------------
+
+\usepackage{pgfpages}  % Needed here for handout specification
+
+% For presentation mode, use simple slides with red titles
+\mode<beamer|trans>{
+\useoutertheme{default}
+\useinnertheme[shadow,outline]{chamfered}
+\usecolortheme{beaver}
+}
+
+% No navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% In case of continued frames, don't use roman numbering
+\setbeamertemplate{frametitle continuation}[from second][(cont'd)]
+
+% Normal and small text sans serif, remaining in serif
+\usefonttheme[stillsansseriftext,stillsansserifsmall]{serif}
+
+% Set margins
+\setbeamersize{text margin left=0.5cm,text margin right=0.5cm} 
+
+% Setup for handouts
+\mode<handout>{
+\useoutertheme{default}
+\useinnertheme[shadow,outline]{chamfered}
+
+% Use black and white mostly
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor{alerted text}{fg=black}
+
+% % 2 slides per page
+% \pgfpagesuselayout{2 on 1}[a4paper, border shrink=10mm]
+% \pgfpageslogicalpageoptions{1}{border code=\pgfstroke}
+% \pgfpageslogicalpageoptions{2}{border code=\pgfstroke}
+
+% 4 slides per page
+\pgfpagesuselayout{4 on 1}[a4paper, landscape, border shrink=10mm]
+\pgfpageslogicalpageoptions{1}{border code=\pgfstroke}
+\pgfpageslogicalpageoptions{2}{border code=\pgfstroke}
+\pgfpageslogicalpageoptions{3}{border code=\pgfstroke}
+\pgfpageslogicalpageoptions{4}{border code=\pgfstroke}
+}
+
+% Repeat table of contents at the beginning of each section
+\mode<beamer|trans>{\AtBeginSection[]{%
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents[currentsection]
+\end{frame}}}
+
+% Centered, variable width block
+% Source: tex.stackexchange.com/questions/12550
+\newenvironment<>{cvarblock}[2][\textwidth]{%
+  \begin{center}
+  \begin{minipage}{#1}
+  % The -2.5pt is avoid overfull hbox errors; Has to do with blocks
+  \setlength{\textwidth}{\textwidth-2.5pt}
+  % Required to itemize respect the width of block
+  \setlength{\linewidth}{\textwidth}       
+  \begin{actionenv}#3%
+    \def\insertblocktitle{#2}%
+    \par%
+    \usebeamertemplate{block begin}
+}{
+    \par%
+    \usebeamertemplate{block end}%
+  \end{actionenv}
+  \end{minipage}
+  \end{center}
+}
+
+\newenvironment<>{varblock}[2][\textwidth]{%
+  % The -2.5pt is avoid overfull hbox errors; Has to do with blocks
+  \setlength{\textwidth}{\textwidth-2.5pt}
+  % Required to itemize respect the width of block
+  \setlength{\linewidth}{\textwidth}       
+  \begin{actionenv}#3%
+    \def\insertblocktitle{#2}%
+    \par%
+    \usebeamertemplate{block begin}
+}{
+    \par%
+    \usebeamertemplate{block end}%
+  \end{actionenv}
+}
+
+%--------------------------------------------------------------------
+%--- Loading of packages
+%--------------------------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+
+\usepackage{libertine}              % LinuxBiolinum Font
+\usepackage[scaled=.77]{beramono}   % Typewriter font
+\usepackage[T1,safe]{tipa}          % Phonetic alphabet
+
+\usepackage[british]{babel}
+\usepackage{textcomp}            % Is necessary, not entirely sure why
+\usepackage{relsize}             % \textsmaller, etc.
+\usepackage{tikz}
+\usepackage{ccicons}             % CC licence symbols
+\usepackage{upgreek}             % Greek letters for `textmode'
+\usepackage{adforn}              % Ornaments on title page
+\usepackage{adjustbox}           % For easy clipping of images
+\usepackage{substitutefont}      % \substitutefont (see below, T3 and IPA)
+\usepackage{multicol,multirow}   % For large cells in tables; see Questions slide
+\usepackage{booktabs}            % Nicely spaced tables
+\usepackage{hologo}              % \LaTeX logo, bookmark friendly
+  \usepackage{tabularx}          % Seems necessary for \hologo in \item[...]
+\usepackage{listings}            % \lstlistings for source code
+
+% Packages used for domain specific tasks
+\usepackage[version=3]{mhchem}
+\usepackage{chemfig}
+\usepackage[detect-all]{siunitx}
+\usepackage[siunitx]{circuitikz}
+\usepackage{smartdiagram}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+\usepackage{cwpuzzle}
+\usepackage{gchords,guitar}
+\usepackage{expex,qtree}
+\usepackage[skaknew]{chessboard,skak}
+\usepackage{pgfgantt}
+\usepackage[all]{xy}
+% \usepackage{pstricks,pst-barcode} % For barcodes, not compiled at the moment
+% \usepackage{auto-pst-pdf}         % Ditto
+
+% Apparently unused packages; from original version
+% \usepackage{marvosym}
+% \usepackage{booktabs}
+% \usepackage{bookmark}
+% \usepackage{bytefield}
+% \usepackage{texshade}
+
+%--------------------------------------------------------------------
+%--- Global setup
+%--------------------------------------------------------------------
+
+% Microtype setup
+\SetTracking{encoding=*}{-39}
+
+% No boundary around frameboxes
+\setlength\fboxsep{0pt}
+
+\urlstyle{same}  % URLs not in typewriter font
+
+% This command fills available vertical space so text can appear at
+% the bottom of the page.
+\newcommand{\btVFill}{\vskip0pt plus 1filll}
+
+% Phonetic alphabet uses T3 encoding, but font loaded by libertine
+% is only available as T1. Substitute Computer Modern instead.
+\substitutefont{T3}{LinuxBiolinumT-TLF}{cmr}
+
+%--------------------------------------------------------------------
+%--- Listings setup
+%--------------------------------------------------------------------
+
+\lstset{
+  upquote,
+  keepspaces=true,
+  columns=spaceflexible,
+  breaklines=true,
+  breakindent=0pt,
+  xleftmargin=0pt, 
+  xrightmargin=6pt,
+  language=[LaTeX]TeX, 
+  basicstyle=\ttfamily\scriptsize,
+  texcsstyle=*\bfseries\color{Maroon},
+  commentstyle=\sffamily\itshape\smaller\color{SeaGreen4},
+  emphstyle=\bfseries\color{RoyalBlue3},escapechar={:},
+  emphstyle={[2]{\bfseries\color{Sienna2}}},
+  postbreak=\mbox{{\smaller\color{gray}$\hookrightarrow$}}
+}
+
+\mode<handout>{
+   \lstset{
+   texcsstyle=*\bfseries, commentstyle=\sffamily\itshape\smaller,
+   emphstyle=\bfseries,escapechar={:},
+   emphstyle={[2]{\bfseries}},
+   emphstyle={[3]{\bfseries}},
+   postbreak=\mbox{{\smaller$\hookrightarrow$}}
+   }
+}
+
+% Changes hyphens into minus signs for tt font.
+\makeatletter
+\lst@CCPutMacro\lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-{}}}
+\@empty\z@\@empty
+\makeatother
+
+%--------------------------------------------------------------------
+%--- Title
+%--------------------------------------------------------------------
+
+\title{An Introduction to \LaTeX}
+\subtitle{
+  \makebox[\linewidth]{%
+  \hrulefill\quad
+  \raisebox{-.8ex}{%   % To vertically center the horizontal lines
+    \adforn{21}\quad\adforn{11}\quad\adforn{49}}
+  \quad\hrulefill}
+}
+
+\author[Martins Bruveris]{%
+\rmfamily Martins Bruveris \\
+\href{http://www.brunel.ac.uk/~mastmmb}{%
+\textsmaller{\url{http://www.brunel.ac.uk/~mastmmb}}}
+}
+
+\date{%
+\rmfamily February \oldstylenums{13}, \oldstylenums{2017}
+}
+
+\titlegraphic{%
+\includegraphics[width=.3\textwidth]{images/TFZsuperellipse-crop} \\
+\tiny Illustration by Duane Bibby
+}
+
+\hypersetup{%
+  pdftitle={An Introduction to LaTeX},
+  pdfauthor={Martins Bruveris},
+  pdfkeywords={latex, introduction, features, typesetting}
+}
+
+%--------------------------------------------------------------------
+%--- Begin slides
+%--------------------------------------------------------------------
+
+\begin{document}
+\begin{frame}[plain]
+\maketitle
+\end{frame}
+
+% If we want a table of contents
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents
+\end{frame}
+
+% What is LateX?
+\include{intro}
+
+% What document types are possible
+\include{document}
+
+% What kind of material can be typeset
+\include{domain}
+% TO DO: Add TikZ example
+
+% Finally, a bit about typography
+\include{typography}
+
+%--------------------------------------------------------------------
+%--- Summary
+%--------------------------------------------------------------------
+
+% \section{Wrapping Up}
+
+% \begin{frame}
+% \frametitle{Summary}
+% \begin{itemize}
+% \item<+-> \LaTeX
+% 	\begin {itemize}
+% 	\item a document preparation system
+% 	\item professional quality typesetting output
+% 	\end{itemize}
+% \item<+-> Output types
+% 	\begin{itemize}
+% 	\item Final year project, reports, books
+% 	\item Presentations, posters
+% 	\item Domain-specific material
+% 	\end{itemize}
+% \item<+-> Usage scenarios
+% 	\begin{itemize}
+% 	\item Direct authoring of a document
+% 	\item Automatic generation (via scripts etc.)
+% 	\item Typesetting of key parts (e.g. graphs)
+% 	\end{itemize}
+% \end{itemize}
+% \end{frame}
+
+%--------------------------------------------------------------------
+%--- Questions
+%--------------------------------------------------------------------
+
+\begin{frame}{The End}
+\centering
+\includegraphics[width=.6\textwidth]{images/multilingual_thank_you}
+
+\bigskip 
+\begin{tabular}{cl}
+\multirow{2}{*}{\LARGE Questions?} & 
+Martins Bruveis (\url{martins.bruveris@brunel.ac.uk}) \\ & 
+Paresh Date (\url{paresh.date@brunel.ac.uk}) \\
+\end{tabular}
+
+\end{frame}
+
+%--------------------------------------------------------------------
+%--- Licence
+%--------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Licence}
+
+\btVFill
+
+{\huge \ccbyncsa}
+\medskip
+
+This work, \emph{\rmfamily An Introduction to \LaTeX}, is a derivative of \\
+\href{https://www.overleaf.com/read/cyfvvyfrpmyn}{\emph{\structure{\LaTeX: More Than Just Academic Papers and Theses}}} by 
+\href{http://liantze.penguinattack.org/}{\structure{LianTze Lim}}, used under \ccbyncsa. This work is licenced under \ccbyncsa\ by Martins Bruveris.
+\bigskip
+\end{frame}
+
+%--------------------------------------------------------------------
+%--- End of document
+%--------------------------------------------------------------------
+
+\end{document}
+
+%%% Local Variables:
+%%% TeX-master: t
+%%% End:

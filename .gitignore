@@ -1,0 +1,13 @@
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.log
+*.out
+*.pgf-plot.gnuplot
+*.pgf-plot.table
+*.pre
+*.run.xml
+*.synctex.gz
+*.toc
+*~

@@ -1,0 +1,99 @@
+% Licence:
+% This work is a derivative of "Multilingual 'Thank-You'" by
+% LianTze Lim, used under a CC-BY 4.0 licence.
+%
+% This work is licenced under a CC-BY 4.0 licence by Martins Bruveris.
+\documentclass{article}
+
+\usepackage[active,tightpage]{preview}
+\usepackage{varwidth}
+\usepackage[dvipsnames,x11names,svgnames]{xcolor}
+\usepackage{tikz}
+\usepackage{polyglossia}
+\usepackage{xeCJK} % For japanese font
+
+\setotherlanguages{arabic,greek,russian}
+
+% FreeSerif is VERY versatile when it comes to multilingual character sets.
+% FreeSans is a little less so, so we'll have to re-define the sans-serif fonts for some languages later.
+\setmainfont{FreeSerif}
+
+\usetikzlibrary{positioning,backgrounds,chains,shapes}
+\newcommand{\tqLemma}[4][]{%
+\node[lemma] (#2) [draw=#3,fill=#3!30,
+%label={[draw=#3!50,fill=#3!10]above:#2},
+#1] {#4};
+}
+
+\tikzset{every node/.append style={draw}}
+\tikzset{lemma/.append style={rectangle, 
+                              rounded corners,
+                              on chain}}
+\tikzset{every label/.append style={semicircle, 
+                                    font={\tiny},
+                                    label distance=-.5pt,
+                                    inner sep=1pt}}
+
+
+\begin{document}
+
+\begin{preview}
+\begin{varwidth}{\linewidth}
+\begin{tikzpicture}
+\node (axis) [circle, inner sep=.3em, draw=gray, fill=gray!30] {};
+
+% First layer (inner) circle
+\begin{scope}[start chain=inner circle placed {at=(10+\tikzchaincount*32.72:6em)}] 
+\tqLemma{ltn}{Orchid}{Gratias tibi}
+
+\tqLemma{fra}{Rhodamine}{Merci}
+
+\tqLemma{chn}{Salmon}{谢谢}
+
+\tqLemma{rus}{SteelBlue}{\textrussian{Спасибо}}
+
+\tqLemma{eng}{Goldenrod}{Thank you}
+
+\tqLemma{grk}{CornflowerBlue}{Ευχαριστώ}
+
+\tqLemma{lat}{Maroon}{Paldies}
+
+\tqLemma{ara}{SeaGreen}{\textarabic{شكرا}}
+
+\tqLemma{ger}{Teal}{Danke}
+
+\tqLemma{glc}{Peach}{Tapadh leibh}
+
+\newCJKfontfamily\jpfont{IPAPMincho}
+\tqLemma[font=\jpfont]{jpn}{Crimson}{ありがとう}
+\end{scope}
+
+%% 2nd layer
+% \begin{scope}[start chain=outer circle placed {at=(\tikzchaincount*32.72-16.36:10.5em)}] 
+% \tqLemma{por}{Periwinkle}{Obrigado}
+% \tqLemma{wel}{Maroon}{Diolch}
+% \end{scope}
+
+\begin{pgfonlayer}{background}
+\path[draw=gray,thick,shorten >=-2pt] (axis) 
+edge (ltn) 
+edge (ger) 
+edge (chn) 
+edge (fra) 
+edge (rus) 
+edge (grk) 
+edge (lat) 
+edge (ara) 
+edge (eng) 
+edge (glc) 
+edge (jpn);
+\end{pgfonlayer}
+
+\end{tikzpicture}
+\end{varwidth}
+\end{preview}
+\end{document}
+
+%%% Local Variables:
+%%% TeX-master: t
+%%% End:
